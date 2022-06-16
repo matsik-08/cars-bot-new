@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+const Nightmare = require('nightmare')
 const { Telegram } = require('telegraf')
 
 const configs = require('./config.json')
@@ -18,16 +18,15 @@ class Tracker {
   async start() {
     console.log('Start tracking...')
 
-    await this.setupBrowser()
+    this.setupBrowser()
     this.setupTelegram()
     await this.checkFile()
   }
 
-  async setupBrowser() {
-    this.browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      })
+  setupBrowser() {
+    this.browser = Nightmare({
+      waitTimeout: 10000,
+    })
   }
 
   setupTelegram() {
@@ -45,30 +44,38 @@ class Tracker {
 
   async checkFile() {
     try {
-      const page = await this.browser.newPage()
-      await page.goto(Tracker.URL)
-      const url = await page.evaluate((className) => {
-        const selector = document.querySelector(`.${className}`)
-        return selector.getAttribute('href')
-      }, Tracker.CLASSNAME)
+      this.browser
+        .goto(Tracker.URL)
+        .refresh()
+        .wait(`.${Tracker.CLASSNAME}`)
+        .evaluate((className) => {
+          const selector = document.querySelector(`.${className}`)
+          return selector.getAttribute('href')
+        }, Tracker.CLASSNAME)
+        .then((url) => {
+          if (!this.carsFileUrl) {
+            console.log('File url was checked first time')
 
-      if (!this.carsFileUrl) {
-        console.log('File url was checked first time')
+            this.carsFileUrl = url
+          } else if (this.carsFileUrl !== url) {
+            const message = `File url was updated. Old url: ${this.carsFileUrl}. New url: ${url}`
 
-        this.carsFileUrl = url
-      } else if (this.carsFileUrl !== url) {
-        const message = `File url was updated. Old url: ${this.carsFileUrl}. New url: ${url}`
+            console.log(message)
 
-        console.log(message)
-
-        this.sendNotification(message)
-        this.changeURL(url)
-      } else {
-        console.log(`File is still the same. URL: ${this.carsFileUrl}`)
-      }
+            this.sendNotification(message)
+            this.changeURL(url)
+          } else {
+            console.log(`File is still the same. URL: ${this.carsFileUrl}`)
+          }
+        })
+        .catch((err) => {
+          console.log('Error appeared', err)
+          this.sendNotification(`Error appeared: ${err}`)
+        })
 
     } catch (err) {
       console.log('Error appeared', err)
+      this.sendNotification(`Error appeared: ${err}`)
     } finally {
       await this.sleep(Tracker.TIMEOUT_IN_MIN * 60 * 1000)
       this.checkFile()
