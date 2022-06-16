@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "nightmare": "^3.0.2",
-    "puppeteer": "^14.4.0",
     "telegraf": "^4.8.5"
   }
 }
