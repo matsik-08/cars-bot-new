@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8487644a-e67a-49bb-8c9d-19f6548085ca" name="Default Changelist" comment="" />
+    <list default="true" id="8487644a-e67a-49bb-8c9d-19f6548085ca" name="Default Changelist" comment="updated bot package">
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2Aa6U5CpTPZXcVkqu8vkrSVnI0E" />
   <component name="ProjectViewState">
@@ -34,10 +39,34 @@
       <option name="presentableId" value="Default" />
       <updated>1655235364680</updated>
       <workItem from="1655235366177" duration="5119000" />
+      <workItem from="1655407389580" duration="2380000" />
     </task>
+    <task id="LOCAL-00001" summary="updated bot package">
+      <created>1655409243243</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1655409243243</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="updated bot package" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated bot package" />
   </component>
 </project>
