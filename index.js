@@ -24,7 +24,10 @@ class Tracker {
   }
 
   async setupBrowser() {
-    this.browser = await puppeteer.launch()
+    this.browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      })
   }
 
   setupTelegram() {
